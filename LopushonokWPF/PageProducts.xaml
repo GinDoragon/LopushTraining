@@ -1,0 +1,91 @@
+﻿<Page x:Class="LopushonokWPF.PageProducts"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LopushonokWPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1000"
+      Title="PageProducts">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60px"/>
+            <RowDefinition/>
+            <RowDefinition Height="60px"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Name="TbSearch" TextChanged="TbSearch_TextChanged"/>
+            <ComboBox Grid.Column="1" x:Name="CbSort" SelectionChanged="CbSort_SelectionChanged"/>
+            <ComboBox Grid.Column="2" x:Name="CbFilter" SelectionChanged="CbFilter_SelectionChanged"/>
+            <StackPanel Orientation="Vertical" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <RadioButton Content="По возрастанию" Name="RbASC" Checked="RbASC_Checked"/>
+                <RadioButton Content="По убыванию" Name="RbDESC" Checked="RbDESC_Checked"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Column="4">
+                <TextBlock FontSize="15" Text="Записей: "/>
+                <TextBlock FontSize="15" x:Name="TbCount" Text="0"/>
+                <TextBlock FontSize="15" Text=". Всего: "/>
+                <TextBlock FontSize="15" x:Name="TbCountAll" Text=""/>
+            </StackPanel>
+        </Grid>
+        <ListBox x:Name="LbProducts" Grid.Row="1" HorizontalContentAlignment="Stretch" SelectionChanged="LbProducts_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120px"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="150px"/>
+                        </Grid.ColumnDefinitions>
+                        <Border CornerRadius="5,5,5,5" Grid.Column="0" Grid.RowSpan="3" Margin="5">
+                            <Border.Background>
+                                <ImageBrush Stretch="Uniform" ImageSource="{Binding ValidImage}"/>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <TextBlock Margin="3">
+                                <Run Text="{Binding ProductType.Title}"/>
+                                <Run Text=" | "/>
+                                <Run Text="{Binding Title}"/>
+                            </TextBlock>
+                            <TextBlock Margin="3" Text="Артикул: ">
+                                <Run Text="{Binding ArticleNumber}"/>
+                            </TextBlock>
+                            <TextBlock Margin="3" Text="Материалы: ">
+                                <Run Text="{Binding ValidMaterials, Mode=OneWay}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Стоимость: ">
+                                <Run Text="{Binding MinCostForAgent}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="BtnAddMat" Content="Добавить" Click="BtnAddMat_Click" Background="#00CC76" Grid.Column="0"/>
+            <Button x:Name="BtnDelMat" Content="Удалить" Click="BtnDelMat_Click"  Background="#00CC76" Grid.Column="1"/>
+            <Button x:Name="BtnEditMat" Content="Изменить" Click="BtnEditMat_Click"  Background="#00CC76" Grid.Column="2"/>
+
+            <Grid Grid.Column="3" Name="GdSwitcher" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center"/>
+        </Grid>
+        
+    </Grid>
+</Page>
